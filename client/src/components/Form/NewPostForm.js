@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Form, FormGroup, Label, Card, CardBody, CardHeader, Button, Input } from 'reactstrap';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux'
-import { createPost } from '../../redux/actions/posts';
+import { createPost, updatePost } from '../../redux/actions/posts';
 
-function NewPostForm(props) {
+function NewPostForm(currentId, setcurrentId) {
 
     
     const clear= ()=>{
@@ -21,7 +21,12 @@ function NewPostForm(props) {
     const handSubmit= (e)=>{
         e.preventDefault();
 
-        dispatch(createPost(postData))
+        if(currentId){
+            dispatch(updatePost(currentId, postData)) 
+        }else{
+            dispatch(createPost(postData))
+        }
+        
     }
     return (
         <>
